@@ -1,0 +1,171 @@
+/* General layout for navigation */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #003300; /* Dark green */
+  padding: 10px 20px;
+}
+
+.navbar .nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar .nav-links li {
+  display: inline-block;
+}
+
+.navbar .nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 15px;
+  transition: background-color 0.3s;
+}
+
+.navbar .nav-links li a:hover {
+  background-color: #004d00; /* Slightly lighter green */
+  border-radius: 5px;
+}
+
+/* Buttons for Auth section */
+.auth-section a,
+.auth-section button {
+  font-size: 16px;
+  color: white;
+  background-color: #006600; /* Green */
+  border: none;
+  padding: 8px 16px;
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.auth-section a:hover,
+.auth-section button:hover {
+  background-color: #004d00;
+}
+
+/* Layout for Real-Time Crop Prices filters */
+.real-time-crop-prices {
+  background-color: #ffe6e6; /* Light pink */
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px 0;
+}
+
+/* Centering the content area */
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Premium style for primary action buttons */
+button {
+  background-color: #006600; /* Green */
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #004d00; /* Darker green */
+}
+
+/* Ensuring header alignment and styling */
+header .logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+
+/* Loading spinner styling */
+.loading {
+  font-size: 20px;
+  text-align: center;
+  color: #333;
+  padding: 50px;
+}
+
+/* Styles for CropPrices component */
+.crop-prices {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.crop-prices h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.crop-prices .filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Space between dropdowns */
+}
+
+.crop-prices .dropdown {
+  display: flex;
+  flex-direction: column;
+}
+
+.crop-prices label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.crop-prices select, .crop-prices .date-input {
+  width: 100%; /* Full width for both select and input */
+  padding: 10px; /* Padding for better touch targets */
+  border: 1px solid #ccc; /* Border style */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 16px; /* Consistent font size */
+  appearance: none; /* Remove default styling for dropdowns */
+}
+
+.crop-prices select:focus, .crop-prices .date-input:focus {
+  outline: none; /* Remove focus outline */
+  border-color: #007bff; /* Change border color on focus */
+}
+
+.crop-prices .search-button {
+  padding: 10px;
+  background-color: #007bff; /* Button color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.crop-prices .search-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.crop-prices ul {
+  list-style-type: none; /* Remove bullets from list */
+  padding: 0;
+}
+
+.crop-prices ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc; /* Divider between items */
+}
+
+.crop-prices ul li:last-child {
+  border-bottom: none; /* Remove divider for last item */
+}

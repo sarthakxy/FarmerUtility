@@ -1,0 +1,44 @@
+.features-section {
+    padding: 20px 20px; /* Adjust top padding from 50px to 20px */
+    text-align: center;
+    background: linear-gradient(135deg, #e2f3e5, #c8e6c9); /* Light green gradient background */
+    border-radius: 10px; /* Round corners for the entire section */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: background 0.5s ease; /* Smooth background transition */
+}
+
+.features-section:hover {
+    background: linear-gradient(135deg, #c8e6c9, #a5d6a7); /* Darker gradient on hover */
+}
+
+/* Keep the rest of your styles as is */
+.features-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.feature-item {
+    width: 200px;
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.feature-item:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+.feature-icon {
+    font-size: 2em;
+    color: #28a745; /* Green color for icons */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.feature-item:hover .feature-icon {
+    color: #1e7e34; /* Darker green on hover */
+}

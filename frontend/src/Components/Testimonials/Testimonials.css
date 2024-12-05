@@ -1,0 +1,124 @@
+/* Testimonials.css */
+.testimonials-section {
+    background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+    padding: 60px 20px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.testimonials-section h2 {
+    font-size: 2.5em;
+    color: #00796b;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.testimonials-carousel {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px 0;
+    scrollbar-width: none; /* For Firefox */
+}
+
+.testimonials-carousel::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+.testimonial-item {
+    min-width: 270px;
+    max-width: 270px;
+    padding: 25px;
+    background: linear-gradient(135deg, #ffffff, #e3f2fd);
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonial-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+.testimonial-feedback {
+    font-size: 1.1em;
+    color: #424242;
+    font-style: italic;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+}
+
+.testimonial-feedback:before, 
+.testimonial-feedback:after {
+    content: '“';
+    color: #26a69a;
+    font-size: 2em;
+    position: absolute;
+    top: -10px;
+}
+
+.testimonial-feedback:after {
+    content: '”';
+    top: auto;
+    bottom: -10px;
+    right: 0;
+}
+
+.testimonial-name {
+    font-size: 1em;
+    color: #00796b;
+    margin-top: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #00796b;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-button.left {
+    left: 15px;
+}
+
+.carousel-button.right {
+    right: 15px;
+}
+
+.carousel-button:hover {
+    background-color: #004d40;
+}
+
+@media (max-width: 600px) {
+    .testimonials-section h2 {
+        font-size: 2em;
+    }
+
+    .testimonial-item {
+        min-width: 85%;
+    }
+
+    .carousel-button {
+        width: 35px;
+        height: 35px;
+        font-size: 1em;
+    }
+}
