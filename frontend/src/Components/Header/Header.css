@@ -1,106 +1,194 @@
-/* Header styles */
-.header {
+/* General styles for the navbar */
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    background: linear-gradient(135deg, #003300, #004d00); /* Dark green gradient */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.logo {
+    background-color: #003300; /* Dark green for the navbar */
+    padding: 15px 20px; /* Thicker navbar */
+    position: fixed; /* Fixed position for navbar */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Ensure navbar stays on top */
+    width: 100%;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    border: none; /* Remove any border that could be adding extra space */
+    margin: 0; /* Remove any margin */
+  }
+  
+  /* Logo section */
+  .navbar .logo {
     font-size: 24px;
     font-weight: bold;
     color: white;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-/* Navbar layout */
-.navbar {
     display: flex;
     align-items: center;
-}
-
-.nav-links {
-    display: flex;
-    gap: 20px;
+    gap: 10px;
+  }
+  
+  .navbar .logo span {
+    font-size: 28px; /* Adjust the size of the farmer emoji */
+  }
+  
+  /* Nav links (pages on the navbar) */
+  .navbar .nav-links {
     list-style: none;
-}
-
-.nav-links li {
+    display: flex;
+    gap: 30px; /* Increased space between tabs */
+    margin-left: auto; /* Align to the right */
+    flex: 1; /* Make nav links take up available space */
+    justify-content: space-evenly; /* Evenly distribute space between links */
+  }
+  
+  .navbar .nav-links li {
     display: inline-block;
-}
-
-.nav-links li a {
+  }
+  
+  .navbar .nav-links li a {
     color: white;
     text-decoration: none;
     font-weight: bold;
     padding: 10px 15px;
-    border-bottom: 3px solid transparent;
-    transition: color 0.3s, border-color 0.3s ease, transform 0.3s ease;
-}
-
-.nav-links li a:hover {
-    color: #ffcc00;
-    border-color: #ffcc00;
-    transform: scale(1.1);
-}
-
-/* Forum button styling */
-.nav-links li.forum-button a {
-    background-color: #ff6600;
-    color: white;
+    transition: background-color 0.3s;
+  }
+  
+  .navbar .nav-links li a:hover {
+    background-color: #004d00; /* Slightly lighter green */
     border-radius: 5px;
-    padding: 8px 16px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.nav-links li.forum-button a:hover {
-    background-color: #cc5200;
-    transform: scale(1.05);
-}
-
-/* Auth section with separator */
-.auth-section {
+  }
+  
+  /* Auth section (Login, Signup, and Logout buttons) */
+  .auth-section {
     display: flex;
     gap: 10px;
-    margin-left: 20px;
-    border-left: 2px solid rgba(255, 255, 255, 0.6);
-    padding-left: 20px;
-}
-
-/* Login/Signup button styling */
-.auth-link {
+  }
+  
+  .auth-section button {
     font-size: 16px;
     color: white;
-    background-color: #ff6600;
+    background-color: #006600; /* Green */
     border: none;
     padding: 8px 16px;
+    margin: 0 5px;
     border-radius: 5px;
-    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.3s;
+  }
+  
+  .auth-section button:hover {
+    background-color: #004d00;
+  }
+  
+  /* Specific styling for the logout button */
+  .logout-button {
+    background-color: rgba(157, 16, 16, 0.652); /* Red color for logout button */
+    transition: background-color 0.3s;
+  }
+  
+  .logout-button:hover {
+    background-color: rgb(255, 0, 0); /* Dark red on hover */
+  }
+  
+  /* Hidden navbar on scroll */
+  /* Default navbar style */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #ffffff;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.auth-link:hover {
-    background-color: #cc5200;
-    transform: scale(1.05);
+/* Hide navbar when scrolling down */
+.navbar-hidden {
+  transform: translateY(-100%);
 }
 
-/* Red Logout button styling */
-.auth-section .logout-button {
+  
+  /* Remove unwanted green bar on login page or when logged out */
+  .navbar-logged-out {
+    display: none;
+  }
+  
+  /* Popup styling */
+  .popup {
+    position: fixed;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Offset by 50% of its own size */
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001; /* Ensure it's on top of the navbar */
+    width: 50vw; /* Set the width to 50% of the viewport width */
+    height: 50vw; /* Set the height to 50% of the viewport width, making it a square */
+    max-width: 500px; /* Optional: Max width of the popup */
+    max-height: 500px; /* Optional: Max height of the popup */
+    border-radius: 8px; /* Optional: Rounded corners */
+    animation: fadeIn 0.3s ease-out; /* Add fade-in animation */
+  }
+  
+  /* Fade-in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Popup Content */
+  .popup-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%; /* Take up full width */
+    height: 100%; /* Take up full height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  }
+  
+  /* Popup Title */
+  .popup-content h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #003300; /* Dark green */
+  }
+  
+  /* Popup Buttons */
+  .popup-content button {
     font-size: 16px;
     color: white;
-    background-color: #ff3333 !important; /* Red color for Logout */
-    border: none;
-    padding: 8px 16px;
+    background-color: #006600; /* Green */
+    padding: 12px 20px;
+    margin: 10px 0;
     border-radius: 5px;
-    font-weight: bold;
+    width: 100%;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.auth-section .logout-button:hover {
-    background-color: #cc0000 !important; /* Darker red on hover */
-    transform: scale(1.05);
-}
+    transition: background-color 0.3s ease;
+    border: none;
+  }
+  
+  .popup-content button:hover {
+    background-color: #eb3f3f; /* Darker green */
+  }
+  
+  /* Close button for popup */
+  .close-button {
+    font-weight: bold; /* This makes the text bold */
+    /* Optional additional styles */
+    padding: 6px 12px;
+    border: none;
+    background-color: #eee;
+    cursor: pointer;
+  }
+  

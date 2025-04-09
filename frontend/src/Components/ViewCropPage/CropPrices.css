@@ -1,0 +1,208 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #f3f4f6, #e2e8f0);
+    color: #1a202c;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100%;
+    overflow: hidden; /* Prevent scrolling */
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #2d3748;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Full-Page Container */
+.container {
+    width: 100%; /* Full width */
+    height: 100vh; /* Full height of the viewport */
+    display: flex; /* Flex layout */
+    flex-direction: column; /* Column layout for vertical stacking */
+    justify-content: flex-start; /* Align content at the top */
+    align-items: stretch; /* Ensure content fills the full width */
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: none; /* Removed shadow for a cleaner look */
+    box-sizing: border-box;
+}
+
+/* Real-Time Crop Prices Section */
+.crop-prices-section {
+    width: 100%;
+    height: calc(100vh - 60px); /* Full height minus header space */
+    padding: 20px;
+    background-color: #edf2f7;
+    margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+.crop-prices-section h2 {
+    font-size: 2rem;
+    color: #2d3748;
+    margin-bottom: 15px;
+}
+
+.price-item {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #3182ce;
+    margin: 10px 0;
+}
+
+.price-item span {
+    font-weight: normal;
+    color: #4a5568;
+}
+
+/* Form Styles (Updated) */
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* Four equal columns for dropdowns */
+    gap: 20px; /* Space between form elements */
+    width: 100%; /* Take full width inside container */
+    max-width: none; /* Remove max-width restriction */
+    height: calc(100vh - 60px); /* Ensure form takes up full height minus header */
+    align-items: center; /* Center items vertically */
+    justify-items: stretch; /* Make items stretch horizontally */
+    background: none; /* Remove extra background for seamless layout */
+    box-sizing: border-box;
+}
+
+/* Labels and Inputs */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #4a5568;
+    text-align: center;
+}
+
+select,
+input[type="text"] {
+    width: 100%; /* Full width for inputs */
+    padding: 10px;
+    border: 1px solid #cbd5e0;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+select:focus,
+input[type="text"]:focus {
+    border-color: #3182ce;
+    box-shadow: 0 0 5px rgba(49, 130, 206, 0.5);
+    outline: none;
+}
+
+/* Buttons */
+button {
+    grid-column: span 4; /* Span button across the full width */
+    width: 100%; /* Full width for button */
+    background-color: #3182ce;
+    color: #ffffff;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #2b6cb0;
+    transform: scale(1.05);
+}
+
+button:active {
+    background-color: #1c4b8a;
+}
+
+/* Pop-Up Styles (Unchanged) */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1000;
+    animation: slide-down 0.4s ease-out;
+}
+
+@keyframes slide-down {
+    from {
+        transform: translate(-50%, -60%);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+}
+
+/* Overlay (Unchanged) */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Dropdown Menu (Unchanged) */
+.dropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dropdown-item {
+    padding: 10px;
+    background-color: #edf2f7;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.dropdown-item:hover {
+    background-color: #e2e8f0;
+    cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+        height: auto; /* Adjust for smaller devices */
+    }
+
+    form {
+        grid-template-columns: 1fr; /* Single-column layout for smaller screens */
+        gap: 15px;
+    }
+
+    button {
+        width: 70%; /* Adjust button size */
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+
+    .crop-prices-section {
+        height: auto; /* Allow the crop prices section to adjust on smaller screens */
+        margin-top: 20px;
+    }
+}

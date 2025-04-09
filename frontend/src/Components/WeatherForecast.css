@@ -1,0 +1,24 @@
+.forecast-container {
+  padding: 1rem;
+}
+
+.current-weather {
+  background-color: #e3f2fd;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+}
+
+.forecast-days {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.forecast-card {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 12px;
+  width: 150px;
+  text-align: center;
+}

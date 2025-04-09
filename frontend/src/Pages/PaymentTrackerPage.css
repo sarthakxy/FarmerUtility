@@ -1,0 +1,87 @@
+/* General Layout */
+.payment-tracker-page {
+    font-family: 'Arial', sans-serif;
+    margin: 20px auto;
+    max-width: 1200px;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Page Header */
+.payment-tracker-page h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* Table Styles */
+.payment-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.payment-table th,
+.payment-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.payment-table th {
+    background-color: #4caf50;
+    color: white;
+    font-weight: bold;
+}
+
+.payment-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.payment-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Buttons */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.action-buttons button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #4caf50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.action-buttons button:hover {
+    background-color: #45a049;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .payment-tracker-page {
+        padding: 15px;
+    }
+
+    .payment-table th,
+    .payment-table td {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .action-buttons button {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+}

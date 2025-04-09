@@ -1,24 +1,52 @@
 .hero-section {
+    width: 100vw;
+    height: 100vh;
     position: relative;
-    height: 100vh; /* Adjust the height as needed */
     overflow: hidden;
 }
 
-.background-video {
+.video-container {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: -1; /* Ensures the video is behind other content */
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.background-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .hero-content {
     position: relative;
-    z-index: 1; /* Ensures text is above the video */
-    color: white; /* Change text color for visibility */
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
     text-align: center;
+    padding: 0 20px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.cta-wrapper {
+    margin-top: 20px;
+}
+
+.cta-button {
+    background-color: #006600;
+    color: white;
+    padding: 12px 24px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #004d00;
 }

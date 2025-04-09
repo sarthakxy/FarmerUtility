@@ -1,33 +1,55 @@
-/* General layout for navigation */
+/* Navbar styles */
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  position: fixed; /* Keep the navbar fixed */
+  top: 0;
+  left: 0;
+  width: 100%;
   background-color: #003300; /* Dark green */
-  padding: 10px 20px;
+  padding: 15px 20px;
+  z-index: 1000; /* Ensure navbar stays on top of other content */
+  transition: top 0.3s ease-in-out; /* Smooth transition */
 }
 
+/* Style when navbar is hidden (scrolling down) */
+.navbar-hidden {
+  top: -100px; /* Move navbar out of view */
+}
+
+/* Navbar links */
 .navbar .nav-links {
-  list-style: none;
   display: flex;
   gap: 20px;
 }
 
 .navbar .nav-links li {
-  display: inline-block;
+  list-style: none;
 }
 
 .navbar .nav-links li a {
-  color: white;
   text-decoration: none;
+  color: white;
   font-weight: bold;
   padding: 10px 15px;
   transition: background-color 0.3s;
 }
 
 .navbar .nav-links li a:hover {
-  background-color: #004d00; /* Slightly lighter green */
+  background-color: #004d00;
+}
+
+/* Other styles for smooth interactions */
+.auth-section a,
+.auth-section button {
+  background-color: #35e435;
+  color: white;
+  padding: 8px 16px;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+.auth-section a:hover,
+.auth-section button:hover {
+  background-color: #004d00;
 }
 
 /* Buttons for Auth section */
@@ -132,40 +154,57 @@ header .logo {
   padding: 10px; /* Padding for better touch targets */
   border: 1px solid #ccc; /* Border style */
   border-radius: 4px; /* Rounded corners */
-  font-size: 16px; /* Consistent font size */
-  appearance: none; /* Remove default styling for dropdowns */
 }
 
-.crop-prices select:focus, .crop-prices .date-input:focus {
-  outline: none; /* Remove focus outline */
-  border-color: #007bff; /* Change border color on focus */
+.crop-prices .crop-table {
+  margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.crop-prices .search-button {
+.crop-prices th, .crop-prices td {
   padding: 10px;
-  background-color: #007bff; /* Button color */
+  text-align: center;
+}
+
+.crop-prices th {
+  background-color: #006600; /* Green */
   color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
 }
 
-.crop-prices .search-button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+.crop-prices tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
-.crop-prices ul {
-  list-style-type: none; /* Remove bullets from list */
+/* kkkk */
+/* Ensure root scroll works */
+html, body {
+  margin: 0;
   padding: 0;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-.crop-prices ul li {
-  padding: 10px;
-  border-bottom: 1px solid #ccc; /* Divider between items */
+/* Make .App take full height and allow scroll */
+.App {
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
 }
 
-.crop-prices ul li:last-child {
-  border-bottom: none; /* Remove divider for last item */
+/* Prevent .content from being squished by navbar */
+.content {
+  flex: 1;
+  margin-top: 80px; /* Height of your navbar (adjust if needed) */
 }
+
+
+
+
+
+
+
+
+

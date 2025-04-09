@@ -1,25 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import HomePage from './Pages/HomePage';
-import CropPrices from './Components/CropPrices';
-import AddCropPage from './Pages/AddCropPage';
+import ViewCropPage from './Components/ViewCropPage/ViewCropPage'; // Updated import
+import ProfitSell from './Pages/ProfitSell';
 import PaymentTrackerPage from './Pages/PaymentTrackerPage';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Modal from './Components/Modal';
 import Header from './Components/Header/Header';
-import HeroSection from './Components/HeroSection/HeroSection'; // Import HeroSection
 import ForumPage from './Pages/ForumPage';
+import WeatherPage from './Pages/WeatherPage'; // adjust the path if needed
+import Footer from './Components/Footer/Footer';
+
+
+
 
 import './App.css';
+
 
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [showSignupModal, setShowSignupModal] = useState(false);
-    const [showCopyrightModal, setShowCopyrightModal] = useState(false);
     const [redirectPath, setRedirectPath] = useState(null);
+
+    const [scrollingDown, setScrollingDown] = useState(false);
+    const [lastScrollY, setLastScrollY] = useState(0);
 
     const navigate = useNavigate();
 
@@ -29,6 +36,45 @@ function App() {
         setLoading(false);
     }, []);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > lastScrollY) {
+                setScrollingDown(true);
+            } else {
+                setScrollingDown(false);
+            }
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [lastScrollY]);
+
+    useEffect(() => {
+        const handleOpenSignupModal = () => {
+            setShowSignupModal(true);
+            setShowLoginModal(false);
+        };
+    
+        const handleOpenLoginModal = () => {
+            setShowLoginModal(true);
+            setShowSignupModal(false);
+        };
+    
+        window.addEventListener('openSignupModal', handleOpenSignupModal);
+        window.addEventListener('openLoginModal', handleOpenLoginModal);
+    
+        return () => {
+            window.removeEventListener('openSignupModal', handleOpenSignupModal);
+            window.removeEventListener('openLoginModal', handleOpenLoginModal);
+        };
+    }, []);
+    
+    
     const handleLogin = (token) => {
         localStorage.setItem('authToken', token);
         setIsAuthenticated(true);
@@ -42,7 +88,7 @@ function App() {
     const handleLogout = () => {
         localStorage.removeItem('authToken');
         setIsAuthenticated(false);
-        navigate("/");
+        navigate('/');
     };
 
     const openLoginModal = () => {
@@ -55,14 +101,18 @@ function App() {
         setShowLoginModal(false);
     };
 
+    const handleSignupSuccess = () => {
+        setShowSignupModal(false);
+        setShowLoginModal(true);
+    };
+
     const handleProtectedRoute = (path) => {
         if (isAuthenticated) {
             navigate(path);
         } else {
             setRedirectPath(path);
-            setShowLoginModal(false);
+            setShowLoginModal(true);
             setShowSignupModal(false);
-            setShowCopyrightModal(true);
         }
     };
 
@@ -78,54 +128,34 @@ function App() {
                 openSignupModal={openSignupModal}
                 handleProtectedRoute={handleProtectedRoute}
                 onLogout={handleLogout}
+                scrollingDown={scrollingDown}
             />
+
             <div className="content">
                 <Routes>
                     <Route path="/" element={<HomePage />} />
-                    <Route path="/view-crops" element={isAuthenticated ? <CropPrices /> : <Navigate to="/" />} />
-                    <Route path="/add-crop" element={isAuthenticated ? <AddCropPage /> : <Navigate to="/" />} />
+                    <Route path="/view-crops" element={isAuthenticated ? <ViewCropPage /> : <Navigate to="/" />} />
+                    <Route path="/profit-sell" element={isAuthenticated ? <ProfitSell /> : <Navigate to="/" />} />
                     <Route path="/payments" element={isAuthenticated ? <PaymentTrackerPage /> : <Navigate to="/" />} />
+                    <Route path="/weather" element={isAuthenticated ? <WeatherPage /> : <Navigate to="/" />} />
                     <Route path="/forum" element={<ForumPage />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </div>
-            {/* Login Modal */}
+
+            
+            <Footer /> {/* ✅ Add this just before the modals */}
+            
             <Modal show={showLoginModal} onClose={() => setShowLoginModal(false)}>
-                <Login onLogin={handleLogin} />
+                <Login onLoginSuccess={handleLogin} />
             </Modal>
-            {/* Signup Modal */}
+
             <Modal show={showSignupModal} onClose={() => setShowSignupModal(false)}>
-                <Signup />
-            </Modal>
-            {/* Copyright Modal */}
-            <Modal 
-                show={showCopyrightModal} 
-                onClose={() => {
-                    setShowLoginModal(false);
-                    setShowSignupModal(false);
-                    setRedirectPath(null);
-                    setShowCopyrightModal(false);
-                }}
-            >
-                <div className="modal-content">
-                    <h3>Farmer Utility App - © 2024 Farmer Utility Corp.</h3>
-                    <p>Please log in or sign up to access this feature.</p>
-                    <div className="modal-actions">
-                        <button onClick={() => { 
-                            setShowLoginModal(true); 
-                            setShowSignupModal(false); 
-                            setShowCopyrightModal(false); 
-                        }}>Login</button>
-                        <button onClick={() => { 
-                            setShowSignupModal(true); 
-                            setShowLoginModal(false); 
-                            setShowCopyrightModal(false); 
-                        }}>Signup</button>
-                    </div>
-                </div>
+                <Signup onSignupSuccess={handleSignupSuccess} />
             </Modal>
         </div>
-    );
+    
+);
 }
 
 export default App;
