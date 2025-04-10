@@ -1,24 +1,98 @@
-.forecast-container {
-  padding: 1rem;
-}
+/* src/Components/WeatherForecast.css */
 
-.current-weather {
-  background-color: #e3f2fd;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 12px;
-}
-
-.forecast-days {
+.forecast-wrapper {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.forecast-card {
-  background-color: #f8f9fa;
+/* Current Weather Cards */
+.current-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1.2rem;
+}
+
+.info-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
   padding: 1rem;
-  border-radius: 12px;
-  width: 150px;
   text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-4px);
+}
+
+.label {
+  font-size: 0.9rem;
+  color: #dbeafe;
+  margin-bottom: 0.25rem;
+}
+
+.value {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* Section Styling */
+.forecast-section {
+  margin-top: 1rem;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  margin-bottom: 0.75rem;
+}
+
+/* Horizontal Scroll */
+.scroll-x {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  scrollbar-width: none;
+}
+
+.scroll-x::-webkit-scrollbar {
+  display: none;
+}
+
+/* Forecast Cards */
+.forecast-card {
+  min-width: 100px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  padding: 0.75rem;
+  text-align: center;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.forecast-card:hover {
+  transform: scale(1.05);
+}
+
+.forecast-card img {
+  width: 50px;
+  height: 50px;
+  margin: 0.5rem 0;
+}
+
+/* Daily Grid Layout */
+.daily-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
 }
