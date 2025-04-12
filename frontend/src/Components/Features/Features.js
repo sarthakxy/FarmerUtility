@@ -6,7 +6,10 @@ const features = [
     { title: "Real-Time Crop Prices", description: "Stay updated with the latest crop prices.", icon: "📈" },
     { title: "Secure Payment Tracking", description: "Track payments with ease and security.", icon: "💰" },
     { title: "AI-Powered Crop Prediction", description: "Get insights with AI predictions.", icon: "🤖" },
-    { title: "Farm Management", description: "Manage all farm-related records.", icon: "🌱" }
+    { title: "Weather Prediction", description: "Stay updated with climatic changes using hourly and 5-day Forecast feature.", icon: "📡" },
+    { title: "Forum Queries", description: "You can update any queries regarding your concerns.", icon: "📝" }
+    
+    
 ];
 
 const Features = () => (

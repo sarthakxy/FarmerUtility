@@ -1,5 +1,5 @@
 import React from "react";
-import CropPrices from './CropPrices';
+import CropPrices from './CropPriceFetcher';
 
 
 const ViewCropPage = () => {

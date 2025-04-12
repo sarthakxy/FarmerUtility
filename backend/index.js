@@ -7,7 +7,7 @@ const helmet = require('helmet');
 // Import routes
 const forumRoutes = require('./routes/forumRoutes');
 const authRoutes = require('./routes/authRoutes');
-const cropRoutes = require('./routes/cropRoutes');
+
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -23,17 +23,38 @@ app.use(
     })
 );
 
-// MongoDB Connection (Keep it for auth-related tasks)
+// MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
     .catch((error) => console.error(`Error connecting to MongoDB: ${error.message}`));
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/forum', require('./routes/forumRoutes'));
-app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/forum', forumRoutes);
+app.use('/api/auth', authRoutes);
 
-app.use('/api/crops', cropRoutes);  // Crop routes for external API-based data fetching
+
+// ✅ New API Route: /crop-price
+app.get('/api/prices', async (req, res) => {
+    const { crop, state, district, type } = req.query;
+
+    if (!crop || !state || !district || !type) {
+        return res.status(400).json({ error: 'Missing query parameters' });
+    }
+
+    // Simulated dynamic response (replace this with your actual DB/API logic)
+    const price = Math.floor(Math.random() * 1000 + 100); // Random price for testing
+    const timestamp = new Date().toLocaleString();
+
+    res.json({
+        crop,
+        state,
+        district,
+        type,
+        price,
+        timestamp,
+    });
+});
 
 // Health check
 app.get('/', (req, res) => res.send('Node.js Backend is running!'));

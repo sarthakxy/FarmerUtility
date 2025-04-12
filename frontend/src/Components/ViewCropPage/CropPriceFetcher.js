@@ -1,14 +1,78 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import CropChart from './CropChart';
+import './CropPriceFetcher.css';
 
-const CropPrices = () => {
-    const [priceArrivals, setPriceArrivals] = useState("");
-    const [crop, setCrop] = useState("");
-    const [state, setState] = useState("");
-    const [district, setDistrict] = useState("");
-    const [cropsData, setCropsData] = useState(null); // For the pop-up display
-    const [showPopUp, setShowPopUp] = useState(false);
+const CropPriceFetcher = () => {
+    const [type, setType] = useState('');
+    const [crop, setCrop] = useState('');
+    const [state, setState] = useState('');
+    const [district, setDistrict] = useState('');
+    const [districtOptions, setDistrictOptions] = useState([]);
 
-    const statesAndDistricts = {
+    const [price, setPrice] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [timestamp, setTimestamp] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
+
+    useEffect(() => {
+        if (state && statesAndDistricts[state]) {
+            setDistrictOptions(statesAndDistricts[state]);
+        } else {
+            setDistrictOptions([]);
+        }
+        setDistrict('');
+    }, [state]);
+
+    const fetchCropPrices = async () => {
+        if (!type || !crop || !state || !district) {
+            alert("Please select all fields before fetching data.");
+            return;
+        }
+
+        setLoading(true);
+        setError('');
+        setShowPopup(false);
+
+        try {
+            const response = await fetch(`http://localhost:4000/api/prices?type=${type}&crop=${crop}&state=${state}&district=${district}`);
+            const data = await response.json();
+
+            if (Array.isArray(data)) {
+                setPrice(data);
+                setTimestamp(new Date().toLocaleString());
+                setShowPopup(true);
+            } else {
+                setError("Unexpected response from server.");
+                setPrice(null);
+            }
+        } catch (err) {
+            setError("Failed to fetch data. Please try again later.");
+            setPrice(null);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const resetForm = () => {
+        setType('');
+        setCrop('');
+        setState('');
+        setDistrict('');
+        setDistrictOptions([]);
+        setPrice(null);
+        setTimestamp('');
+        setShowPopup(false);
+        setError('');
+    };
+
+    const crops =  [
+        "Wheat", "Rice (Paddy)", "Maize (Corn)", "Barley", "Millets", "Bajra (Pearl Millet)", "Jowar (Sorghum)", "Ragi (Finger Millet)", 
+        "Chana (Chickpea)", "Moong (Green Gram)", "Masoor (Lentil)", "Arhar/Tur (Pigeon Pea)", "Urad (Black Gram)", "Rajma (Kidney Beans)", 
+        "Mustard", "Potato"
+    ]; 
+
+    const statesAndDistricts =  {
         "Andhra Pradesh": [
             "Anantapur", "Chittoor", "East Godavari", "Guntur", "Krishna", "Kurnool", "Prakasam", "Sri Potti Sriramulu Nellore",
             "Srikakulam", "Visakhapatnam", "Vizianagaram", "West Godavari", "YSR Kadapa", "Anakapalli", "Annamayya", "Bapatla",
@@ -148,92 +212,70 @@ const CropPrices = () => {
             "Karaikal", "Mahe", "Puducherry", "Yanam"
           ]
         };
-        
-        const crops = [
-            "Wheat", "Rice (Paddy)", "Maize (Corn)", "Barley", "Millets", "Bajra (Pearl Millet)", "Jowar (Sorghum)", "Ragi (Finger Millet)", 
-            "Chana (Chickpea)", "Moong (Green Gram)", "Masoor (Lentil)", "Arhar/Tur (Pigeon Pea)", "Urad (Black Gram)", "Rajma (Kidney Beans)", 
-            "Mustard", "Potato"
-        ];
-        
 
-    const handleSearch = async () => {
-        const queryParams = new URLSearchParams({
-            priceArrivals,
-            crop,
-            state,
-            district,
-        }).toString();
-
-        try {
-            const response = await fetch(`http://localhost:4000/api/crops?${queryParams}`);
-            const data = await response.json();
-            if (response.ok) {
-                setCropsData(data);
-                setShowPopUp(true); // Show pop-up with results
-            } else {
-                alert("No matching data found!");
-                setCropsData(null);
-            }
-        } catch (error) {
-            console.error("Error fetching crop data:", error);
-        }
-    };
 
     return (
-        <div className="crop-prices">
-            <h2>Real-Time Crop Prices</h2>
-            <div className="filter-container">
-                {/* Dropdowns for filters */}
-                <label>
-                    Price/Arrivals:
-                    <select
-                        value={priceArrivals}
-                        onChange={(e) => setPriceArrivals(e.target.value)}
-                    >
-                        <option value="">Select</option>
-                        <option value="price">Price</option>
-                        <option value="arrivals">Arrivals</option>
-                    </select>
-                </label>
-                <label>
-                    Crop:
-                    <select value={crop} onChange={(e) => setCrop(e.target.value)}>
-                        <option value="">Select Crop</option>
-                        {crops.map((cropName) => (
-                            <option key={cropName} value={cropName}>
-                                {cropName}
-                            </option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    State:
-                    <select value={state} onChange={(e) => setState(e.target.value)}>
-                        <option value="">Select State</option>
-                        {Object.keys(statesAndDistricts).map((stateName) => (
-                            <option key={stateName} value={stateName}>
-                                {stateName}
-                            </option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    District:
-                    <select value={district} onChange={(e) => setDistrict(e.target.value)}>
-                        <option value="">Select District</option>
-                        {state && statesAndDistricts[state] && statesAndDistricts[state].map((districtName) => (
-                            <option key={districtName} value={districtName}>
-                                {districtName}
-                            </option>
-                        ))}
-                    </select>
-                </label>
-                <button onClick={handleSearch}>Search</button>
+        <div className="crop-price-fetcher">
+            <h2>Crop Price Fetcher</h2>
+
+            <div className="form-group">
+                <label>Type:</label>
+                <select value={type} onChange={e => setType(e.target.value)}>
+                    <option value="">Select Type</option>
+                    <option value="Retail">Retail</option>
+                    <option value="Wholesale">Wholesale</option>
+                </select>
             </div>
 
-            
+            <div className="form-group">
+                <label>Crop:</label>
+                <select value={crop} onChange={e => setCrop(e.target.value)}>
+                    <option value="">Select Crop</option>
+                    {crops.map((c, i) => (
+                        <option key={i} value={c}>{c}</option>
+                    ))}
+                </select>
+            </div>
+
+            <div className="form-group">
+                <label>State:</label>
+                <select value={state} onChange={e => setState(e.target.value)}>
+                    <option value="">Select State</option>
+                    {Object.keys(statesAndDistricts).map((s, i) => (
+                        <option key={i} value={s}>{s}</option>
+                    ))}
+                </select>
+            </div>
+
+            <div className="form-group">
+                <label>District:</label>
+                <select value={district} onChange={e => setDistrict(e.target.value)} disabled={!state}>
+                    <option value="">Select District</option>
+                    {districtOptions.map((d, i) => (
+                        <option key={i} value={d}>{d}</option>
+                    ))}
+                </select>
+            </div>
+
+            <div className="buttons">
+                <button onClick={fetchCropPrices} disabled={loading || !type || !crop || !state || !district}>
+                    {loading ? "Fetching..." : "Fetch Prices"}
+                </button>
+                <button onClick={resetForm} className="reset-btn">Reset</button>
+            </div>
+
+            {error && <div className="error-message">{error}</div>}
+
+            {showPopup && price && (
+                <div className="popup">
+                    <h3>Results for {crop} in {district}, {state} ({type})</h3>
+                    <p><strong>Fetched on:</strong> {timestamp}</p>
+                    <CropChart priceData={price} />
+                    <button onClick={() => setShowPopup(false)}>Close</button>
+                </div>
+            )}
         </div>
     );
 };
 
-export default CropPrices;
+export default CropPriceFetcher;
