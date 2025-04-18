@@ -1,15 +1,16 @@
-// routes/forum.js
-
 const express = require('express');
 const router = express.Router();
-const { postQuery, getAllQueries } = require('../controllers/forumController');
 const verifyToken = require('../middleware/authMiddleware.js');
+const {
+    postQuery,
+    getAllQueries,
+    postReply,
+    getReplies
+  } = require('../controllers/forumController');
 
-// 🛡️ Protected POST route
 router.post('/post-query', verifyToken, postQuery);
-
-
-// ✅ Public GET route
+router.post('/:queryId/reply', verifyToken, postReply); 
+router.get('/:queryId/replies', getReplies);
 router.get('/queries', getAllQueries);
 
 module.exports = router;

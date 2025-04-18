@@ -1,21 +1,26 @@
 /* src/Pages/WeatherPage.css */
 
 .weather-page {
+  width: 100vw;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   padding: 4rem 1rem;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   transition: background-image 0.5s ease-in-out;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
+
 
 .weather-card {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(20px);
+  align-items: center;
   border-radius: 20px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
   padding: 2rem;

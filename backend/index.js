@@ -43,7 +43,7 @@ app.get('/api/prices', async (req, res) => {
     }
 
     // Simulated dynamic response (replace this with your actual DB/API logic)
-    const price = Math.floor(Math.random() * 1000 + 100); // Random price for testing
+    const price = Math.floor(Math.random() * 1000 + 900); // Random price for testing
     const timestamp = new Date().toLocaleString();
 
     res.json({

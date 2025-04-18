@@ -11,6 +11,7 @@ import Header from './Components/Header/Header';
 import ForumPage from './Pages/ForumPage';
 import WeatherPage from './Pages/WeatherPage'; // adjust the path if needed
 import Footer from './Components/Footer/Footer';
+import Commodity from './Pages/Commodity';
 
 
 
@@ -138,6 +139,7 @@ function App() {
                     <Route path="/profit-sell" element={isAuthenticated ? <ProfitSell /> : <Navigate to="/" />} />
                     <Route path="/payments" element={isAuthenticated ? <PaymentTrackerPage /> : <Navigate to="/" />} />
                     <Route path="/weather" element={isAuthenticated ? <WeatherPage /> : <Navigate to="/" />} />
+                    <Route path="/commodity" element={isAuthenticated ? <Commodity /> : <Navigate to="/" />} />
                     <Route path="/forum" element={<ForumPage />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>

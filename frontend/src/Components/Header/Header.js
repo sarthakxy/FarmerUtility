@@ -36,9 +36,10 @@ const Header = ({ isAuthenticated, openLoginModal, openSignupModal, onLogout, sc
                 <li><a href="/" onClick={handleLinkClick}>Home</a></li>
                 <li><a href="/view-crops" onClick={handleLinkClick}>View Crops</a></li>
                 <li><a href="/Weather" onClick={handleLinkClick}>WeatherPage</a></li>
-                <li><a href="/profit-sell" onClick={handleLinkClick}>Profit Sell</a></li>
-                <li><a href="/payments" onClick={handleLinkClick}>Payments</a></li>
+                <li><a href="/Commodity" onClick={handleLinkClick}>Commodity</a></li>
                 <li><a href="/forum" onClick={handleLinkClick}>Forum</a></li>
+                <li><a href="/payments" onClick={handleLinkClick}>Payments</a></li>
+                
             </ul>
             <div className="auth-section">
                 {isAuthenticated ? (

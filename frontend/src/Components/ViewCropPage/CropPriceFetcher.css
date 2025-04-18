@@ -1,118 +1,144 @@
-/* Container */
-.crop-price-fetcher {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 2rem;
-    background: #f7f9fc;
-    border-radius: 16px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
-  }
-  
-  /* Form layout */
-  form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
-  }
-  
-  form label {
-    flex: 1 1 45%;
-    display: flex;
-    flex-direction: column;
-    font-weight: 600;
-    font-size: 14px;
-    color: #333;
-  }
-  
-  form select {
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 15px;
-    background: #fff;
-  }
-  
-  /* Button styles */
-  .buttons {
-    margin-top: 1.5rem;
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-  }
-  
-  button {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .fetch-btn {
-    background-color: #2e8b57;
-    color: white;
-  }
-  
-  .fetch-btn:hover {
-    background-color: #267147;
-  }
-  
-  .reset-btn {
-    background-color: #f44336;
-    color: white;
-  }
-  
-  .reset-btn:hover {
-    background-color: #d32f2f;
-  }
-  
-  /* Loading and error messages */
-  .loading,
-  .error {
-    text-align: center;
-    margin-top: 1rem;
-    font-size: 16px;
-  }
-  
-  .loading {
-    color: #0077cc;
-  }
-  
-  .error {
-    color: red;
-  }
-  
-  /* Timestamp */
-  .timestamp {
-    margin-top: 0.5rem;
-    font-size: 13px;
-    color: #888;
-    text-align: center;
-  }
-  
-  /* Popup container */
-  .popup {
-    background: #e8f5e9;
-    padding: 1rem;
-    border-radius: 10px;
-    border-left: 6px solid #4caf50;
-    margin-top: 2rem;
-    text-align: center;
-    font-weight: 500;
-  }
-  
-  /* Responsive design */
-  @media (max-width: 768px) {
-    form label {
-      flex: 1 1 100%;
-    }
-  
-    .buttons {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-  
+.crop-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background: #f0f4f8;
+  min-height: 100vh;
+}
+
+.crop-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  width: 100%;
+  max-width: 600px;
+}
+
+.crop-card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  color: #2c3e50;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #333;
+}
+
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background: #f9f9f9;
+}
+
+.form-group select:focus {
+  outline: none;
+  border-color: #0077cc;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  transition: background 0.3s;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.reset-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.action-buttons button:first-child {
+  background: linear-gradient(to right, #0077cc, #00aaff);
+  color: white;
+}
+
+.error-box {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #ffe0e0;
+  color: #c0392b;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* Industrial themed popup */
+.industrial-popup {
+  background: #1f1f1f;
+  border: 1px solid #3a3a3a;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+  color: #15a6ea;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.industrial-popup h2 {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.6rem;
+  color: #00aaff;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.5rem;
+}
+
+.popup-info p {
+  margin: 0.8rem 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  border-bottom: 1px dashed #150f0f;
+  padding-bottom: 0.3rem;
+}
+
+.popup-info span {
+  font-weight: 600;
+  color: #020202;
+}
+
+.popup-close {
+  margin-top: 1.5rem;
+  width: 100%;
+  background: #ff6b00;
+  color: #fff;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.popup-close:hover {
+  background: #e55c00;
+}
