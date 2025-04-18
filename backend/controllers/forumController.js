@@ -94,9 +94,70 @@ const getReplies = async (req, res) => {
     }
 };
 
+const deleteQuery = async (req, res) => {
+    const { queryId } = req.params;
+
+    try {
+        const query = await ForumQuery.findById(queryId);
+
+        if (!query) {
+            return res.status(404).json({ message: 'Query not found.' });
+        }
+
+        if (query.username !== req.user.username) {
+            return res.status(403).json({ message: 'Unauthorized: You can only delete your own queries.' });
+        }
+
+        await ForumQuery.findByIdAndDelete(queryId);
+        res.status(200).json({ message: 'Query deleted successfully.' });
+    } catch (err) {
+        console.error('Error deleting query:', err);
+        res.status(500).json({ message: 'Error deleting query.', error: err.message });
+    }
+};
+
+// DELETE /api/forum/:queryId/reply/:replyId
+const deleteReply = async (req, res) => {
+    const { queryId, replyId } = req.params;
+  
+    try {
+      const query = await ForumQuery.findById(queryId);
+      if (!query) {
+        return res.status(404).json({ message: 'Query not found.' });
+      }
+  
+      const replyIndex = query.replies.findIndex(
+        (reply) => reply._id && reply._id.equals(mongoose.Types.ObjectId(replyId))
+      );
+      console.log("Searching for replyId:", replyId);
+console.log("Replies:", query.replies.map(r => r._id?.toString()));
+
+      
+      if (replyIndex === -1) {
+        return res.status(404).json({ message: 'Reply not found.' });
+      }
+  
+      if (query.replies[replyIndex].username !== req.user.username) {
+        return res.status(403).json({ message: 'Unauthorized to delete this reply.' });
+      }
+  
+      query.replies.splice(replyIndex, 1);
+      await query.save();
+  
+      res.status(200).json({ message: 'Reply deleted successfully.' });
+    } catch (err) {
+      console.error('Error deleting reply:', err);
+      res.status(500).json({ message: 'Error deleting reply.', error: err.message });
+    }
+  };
+  
+
+
 module.exports = {
     postQuery,
     getAllQueries,
     postReply,
     getReplies,
+    deleteQuery,
+    deleteReply,
 };

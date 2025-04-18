@@ -5,7 +5,7 @@ import Testimonials from '../Components/Testimonials/Testimonials';
 
 const HomePage = () => {
   return (
-    <div className="home-page" style={{ width: "100%", overflowX: "hidden" }}>
+    <div style={{ height: '2000px', background: '#f3f3f3' }}>
       <HeroSection />
       <Features />
       <Testimonials />

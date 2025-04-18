@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import HomePage from './Pages/HomePage';
 import ViewCropPage from './Components/ViewCropPage/ViewCropPage'; // Updated import
@@ -27,7 +27,7 @@ function App() {
     const [redirectPath, setRedirectPath] = useState(null);
 
     const [scrollingDown, setScrollingDown] = useState(false);
-    const [lastScrollY, setLastScrollY] = useState(0);
+    const lastScrollYRef = useRef(0);
 
     const navigate = useNavigate();
 
@@ -40,20 +40,20 @@ function App() {
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
-            if (currentScrollY > lastScrollY) {
+            if (currentScrollY > lastScrollYRef.current) {
                 setScrollingDown(true);
             } else {
                 setScrollingDown(false);
             }
-            setLastScrollY(currentScrollY);
+            lastScrollYRef.current = currentScrollY;
         };
-
+    
         window.addEventListener('scroll', handleScroll);
-
+    
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, [lastScrollY]);
+    }, []);
 
     useEffect(() => {
         const handleOpenSignupModal = () => {

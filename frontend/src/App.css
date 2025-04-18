@@ -1,41 +1,4 @@
-/* Navbar styles */
-.navbar {
-  position: fixed; /* Keep the navbar fixed */
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #003300; /* Dark green */
-  padding: 15px 20px;
-  z-index: 1000; /* Ensure navbar stays on top of other content */
-  transition: top 0.3s ease-in-out; /* Smooth transition */
-}
 
-/* Style when navbar is hidden (scrolling down) */
-.navbar-hidden {
-  top: -100px; /* Move navbar out of view */
-}
-
-/* Navbar links */
-.navbar .nav-links {
-  display: flex;
-  gap: 20px;
-}
-
-.navbar .nav-links li {
-  list-style: none;
-}
-
-.navbar .nav-links li a {
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-  padding: 10px 15px;
-  transition: background-color 0.3s;
-}
-
-.navbar .nav-links li a:hover {
-  background-color: #004d00;
-}
 
 /* Other styles for smooth interactions */
 .auth-section a,

@@ -1,6 +1,7 @@
 // backend/models/ForumQuery.js
 const mongoose = require('mongoose');
 
+
 const replySchema = new mongoose.Schema(
   {
     username: {
@@ -16,9 +17,9 @@ const replySchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-  },
-  { _id: false }
+  } 
 );
+
 
 const forumQuerySchema = new mongoose.Schema(
   {

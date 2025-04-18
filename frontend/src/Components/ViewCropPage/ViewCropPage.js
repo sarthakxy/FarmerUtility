@@ -3,7 +3,7 @@ import CropPrices from './CropPriceFetcher';
 import './ViewCropPage.css';
 
 const ViewCropPage = () => {
-    const backgroundImage = `${process.env.PUBLIC_URL}/Assets/cloudy.jpg`; // 👈 Image from public folder
+    const backgroundImage = `${process.env.PUBLIC_URL}/Assets/Rate.jpg`; // 👈 Image from public folder
 
     return (
         <div className="view-crop-page" style={{ backgroundImage: `url(${backgroundImage})` }}>

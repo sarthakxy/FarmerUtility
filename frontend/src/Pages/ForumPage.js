@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './ForumPage.css';
-import { FaChevronDown, FaChevronUp, FaTimes, FaHeart } from 'react-icons/fa';
+import { FaChevronDown, FaTrash, FaChevronUp, FaTimes, FaHeart } from 'react-icons/fa';
+import { jwtDecode } from 'jwt-decode';
+
 
 const ITEMS_PER_PAGE = 5;
 const INITIAL_QUERY_COUNT = 5;
@@ -19,6 +21,7 @@ const ForumPage = () => {
   const [descWordCount, setDescWordCount] = useState(0);
   const [reactionMenuVisible, setReactionMenuVisible] = useState({});
   const [reactions, setReactions] = useState({});
+  const [currentUser, setCurrentUser] = useState(null);
 
   const MIN_TITLE_WORDS = 3;
   const MIN_DESCRIPTION_WORDS = 5;
@@ -31,6 +34,59 @@ const ForumPage = () => {
       console.error('❌ Error fetching queries:', err);
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        setCurrentUser(decoded?.username || null);
+      } catch (e) {
+        console.error('Invalid token');
+      }
+    }
+    fetchQueries();
+  }, []);
+
+  const handleDeleteQuery = async (queryId) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this query?');
+    if (!confirmDelete) return;
+
+    const token = localStorage.getItem('token');
+    try {
+      await axios.delete(`http://localhost:4000/api/forum/${queryId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setQueries((prev) => prev.filter((q) => q._id !== queryId));
+    } catch (err) {
+      console.error('❌ Failed to delete query:', err);
+      alert('Error deleting query.');
+    }
+  };
+
+  const handleDeleteReply = async (queryId, replyId) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this reply?');
+    if (!confirmDelete) return;
+  
+    const token = localStorage.getItem('token');
+    try {
+      await axios.delete(`http://localhost:4000/api/forum/${queryId}/reply/${replyId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setReplies((prev) => ({
+        ...prev,
+        [queryId]: prev[queryId].filter((r) => r._id !== replyId),
+      }));
+    } catch (err) {
+      console.error('❌ Failed to delete reply:', err);
+      alert('Error deleting reply.');
+    }
+  };
+  
 
   const fetchReplies = async (queryId) => {
     try {
@@ -166,10 +222,6 @@ const ForumPage = () => {
   const allQueriesLoaded = visibleQueries.length >= queries.length;
   const showCloseButton = visibleQueriesCount > INITIAL_QUERY_COUNT;
 
-  useEffect(() => {
-    fetchQueries();
-  }, []);
-
   return (
     <div className="forum-page-container">
       <div className="post-query-section">
@@ -213,6 +265,15 @@ const ForumPage = () => {
             <div className="query-header">
               <h4>{query.title}</h4>
               <p className="query-user">@{query.username || 'Anonymous'}</p>
+              {currentUser === query.username && (
+                <button
+                  className="delete-button"
+                  title="Delete query"
+                  onClick={() => handleDeleteQuery(query._id)}
+                >
+                  <FaTrash />
+                </button>
+              )}
             </div>
             <p className="query-description">{query.description}</p>
 
@@ -243,11 +304,21 @@ const ForumPage = () => {
 
             {repliesVisible[query._id] && (
               <div className="replies-section">
-                {replies[query._id]?.map((reply, idx) => (
-                  <div key={reply._id} className="reply-item">
-                    <strong>@{reply.username || 'Anonymous'}:</strong> {reply.content}
-                  </div>
-                ))}
+                {replies[query._id]?.map((reply) => (
+  <div key={reply._id} className="reply-item">
+    <strong>@{reply.username || 'Anonymous'}:</strong> {reply.content}
+    {currentUser === reply.username && (
+      <button
+        className="delete-reply-button"
+        title="Delete reply"
+        onClick={() => handleDeleteReply(query._id, reply._id)}
+      >
+        🗑️
+      </button>
+    )}
+  </div>
+))}
+
                 <textarea
                   className="reply-input"
                   placeholder="Write a reply..."
